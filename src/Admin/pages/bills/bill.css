@@ -1,0 +1,18 @@
+.active {
+    background-color: bisque;
+    box-shadow: 2px 3px #aaa9a9;
+}
+.success{
+    background-color: rgb(163, 231, 123);
+    box-shadow: 2px 3px #aaa9a9;
+}
+
+.fail{
+    background-color: rgb(224, 100, 100);
+    box-shadow: 2px 3px #aaa9a9;
+}
+
+.onway {
+    background-color: rgb(201, 206, 198);
+    box-shadow: 2px 3px #aaa9a9;
+}

@@ -1,0 +1,81 @@
+.icon {
+    font-size: 40px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin-right: 20px;
+}
+.loadingContainer {
+    padding: 20px 40px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: #063547;
+}
+.text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.confirmContainer {
+    padding: 40px 30px 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-width: 500px;
+    position: relative;
+}
+.title {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    color: #072566;
+}
+.confirmIcon {
+    margin-right: 10px;
+    font-size: 22px;
+    color: #2c5eaf;
+}
+.content {
+    padding: 15px 0 25px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+.btnGroup {
+    text-align: right;
+}
+.button {
+    padding: 8px 15px;
+    font-size: 14px;
+    min-width: 100px;
+    border: none;
+    outline: none !important;
+    color: #3a6bb8;
+    background-color: #fff;
+    font-weight: 700;
+    border-radius: 10px;
+}
+.button.solid {
+    background-color: #ebf1ff;
+}

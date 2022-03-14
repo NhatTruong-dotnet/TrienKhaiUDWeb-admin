@@ -1,0 +1,61 @@
+.messengerAdmin{
+    height: calc(100vh - 70px);
+    display: flex;
+}
+
+.chatMenuAdmin{
+    flex: 1;
+}
+
+.chatBoxAdmin{
+    flex: 4.5;
+}
+
+.chatBoxBottomAdmin{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatSubmitButtonAdmin{
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: teal;
+}
+.chatMessageInputAdmin{
+    width: 80%;
+    height: 90px;
+    padding: 10px;
+}
+.chatOnlineAdmin{
+    flex: 3;
+}
+
+.chatMenuInputAdmin{
+    width: 90%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.chatBoxWrapperAdmin{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right:10px ;
+}
+
+.chatBoxTopAdmin {
+    height: 100%;
+    overflow: scroll;
+}
+.chatMenuWrapperAdmin, .chatBoxWrapperAdmin, .chatOnlineWrapperAdmin {
+    padding: 10px;
+    
+    height: 100%;
+}
