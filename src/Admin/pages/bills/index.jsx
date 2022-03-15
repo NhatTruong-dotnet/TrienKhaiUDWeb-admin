@@ -90,7 +90,7 @@ export default function BillPage() {
                 </div>
             </div>
 
-            <div className="card col-6" style={{ height: "800px", width: "auto" }} >
+            <div className="card col-5" style={{ height: "800px", width: "auto" }} >
                 <h5 class="card-header">Chi tiết hóa đơn</h5>
                 <div class="table-responsive text-nowrap">
                     {
