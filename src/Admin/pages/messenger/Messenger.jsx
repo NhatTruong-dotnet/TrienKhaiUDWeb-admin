@@ -13,7 +13,7 @@ export default function Messenger() {
   let currentUser = JSON.parse(localStorage.getItem('user'));
   let userToFetchConversation = '';
   let messageSend = useRef();
-  const [socket, setSocket] = useState(io(`https://serverbookstore.herokuapp.com:7939`));
+  const [socket, setSocket] = useState(io(`https://serverbookstore.herokuapp.com`));
   const [newMessgeCome, setNewMessageCome] = useState(false);
 
   const [enabledSendIcon, setEnabledSendIcon] = useState(false);
