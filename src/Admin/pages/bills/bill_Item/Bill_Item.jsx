@@ -1,6 +1,7 @@
 import React from 'react'
-
+import '../bill.css'
 export default function Bill_Item(props) {
+    console.log(props.style);
     let billStatus = ''
     let tableColor = ''
     if (!props.isDelivery) {
@@ -21,7 +22,7 @@ export default function Bill_Item(props) {
     }
 
     return (
-        <tr className={"table-" + tableColor} onClick={() => {props.onclick(props)}} style={{cursor:"pointer"}}>
+        <tr className={"table-" + tableColor +" "+props.style} onClick={() => {props.onclick(props)}} style={{cursor:"pointer",overflow:"hidden"}}>
             <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>{props.id}</strong></td>
             <td>{props.paymentMethod}</td>
             <td>

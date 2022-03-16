@@ -54,27 +54,7 @@ function Sidebar(props) {
                     setActivePage={handleSetActivePage}
                 />
             ))}
-            {/* <div
-                className={clsx(styles.sidebarItem)}
-                onClick={() => handleNavigate('/users')}
-            >
-                <RiUser3Line className={styles.icon} />
-                Users
-            </div>
-            <div
-                className={clsx(styles.sidebarItem)}
-                onClick={() => handleNavigate('/book')}
-            >
-                <BiBook className={styles.icon} />
-                Books
-            </div>
-            <div
-                className={clsx(styles.sidebarItem)}
-                onClick={() => handleNavigate('/messenger')}
-            >
-                <RiMessengerLine className={styles.icon} />
-                Messengers
-            </div> */}
+            
         </div>
     )
 }
