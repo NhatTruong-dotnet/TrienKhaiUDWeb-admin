@@ -1,6 +1,7 @@
-import {useState} from "react"
+import {useState,useRef} from "react"
 import axios from "axios";
 function AddBook(props){
+   
     const [bookAdd, setBookAdd] =useState({
         name:"",
         publisher:"",
@@ -12,8 +13,47 @@ function AddBook(props){
         translator:"",
         numberInStock:"",
         describe:"",
-        img:""
+        img:[]
     });
+    const handleChange = e =>{
+        setBookAdd({
+            ...bookAdd,
+            [e.target.name]:e.target.name === 'img' ? e.target.files[0] : e.target.value
+        })
+       
+    }   
+    const submit=async(e)=>{
+        e.preventDefault()
+        try {
+            const formData =new FormData();
+            formData.append('name', bookAdd.name)
+            formData.append('publisher',bookAdd.publisher)
+            formData.append('author', bookAdd.author)
+            formData.append('price', bookAdd.price)
+            formData.append('quantityOfPage',bookAdd.quantityOfPage)
+            formData.append('publishYear',bookAdd.publishYear)
+            formData.append('suppiler', bookAdd.suppiler)
+            formData.append('translator',bookAdd.translator)
+            formData.append('translator',bookAdd.translator)
+            formData.append('numberInStock',bookAdd.numberInStock)
+            formData.append('describe',bookAdd.describe)
+            formData.append( 'image',bookAdd.img)
+            const res= await axios.post("https://serverbookstore.herokuapp.com/api/Books/insertBook",
+               formData,
+               {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+            )
+           
+        } catch (error) {
+            console.log(error)
+        }
+      
+        props.onCloseForm();
+    }
+   
     const number =(value,selector)=>{
         if(value<0){
             console.log("Vui long nhap so duong")
@@ -26,35 +66,8 @@ function AddBook(props){
             document.getElementById(selector).classList.add("invalid");
         }
     }
-    const submit=async(e)=>{
-        e.preventDefault()
-        try {
-            const res= await axios.post("https://serverbookstore.herokuapp.com/api/Books/insertBook",{
-                name:bookAdd.name,
-                publisher:bookAdd.publisher,
-                author:bookAdd.author,
-                price:bookAdd.price,
-                quantityOfPage:bookAdd.quantityOfPage,
-                publishYear:bookAdd.publishYear,
-                suppiler:bookAdd.suppiler,
-                translator:bookAdd.translator,
-                numberInStock:bookAdd.numberInStock,
-                numberDelivery:0,
-                describe:bookAdd.describe,
-                img:bookAdd.img
-            });
-            console.log(res.data)
-            props.onCloseForm();
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const handleChange = e =>{
-        setBookAdd({
-            ...bookAdd,
-            [e.target.name]:e.target.value
-        })
-    }
+    console.log(bookAdd)
+   
     return(
         <div className="_modal _modal-top fade_" id="modalTop" >
              <div className="_modal-dialog">
@@ -249,15 +262,17 @@ function AddBook(props){
                                 </label>
                             <div className="input-group">
                                 <input type="file" className="_form-control" id="inputGroupFile02" 
+                                 multiple
                                  name="img"
                                  onChange={handleChange}
                                  onBlur={(e)=>{
-                                    require(e.target.value,e.target.id) 
+                                    // require(e.target.value,e.target.id) 
                                  }}/>
                                 {/* <label className="input-group-text" htmlFor="inputGroupFile02">
                                     Upload
                                 </label> */}
                             </div> 
+                           
                         </div>
                     </div>
                     <div class="mb-3">
@@ -288,6 +303,7 @@ function AddBook(props){
                     </button>
                     <button type="submit" className="btn btn-primary"  
                     // onClick={()=>{ props.onCloseForm(); }}
+                    onSubmit={submit}
                       >
                    Lưu 
                     </button>

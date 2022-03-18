@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react"
 import { Context } from "../../../../Page/BooksPage/Context/Context"
 import axios from "axios";
 function EditBook(props){
+    // console.log(props.id);
     const [bookEdit,setBookEdit] = useState({
         name:"",
         publisher:"",
@@ -13,7 +14,7 @@ function EditBook(props){
         translator:"",
         numberInStock:"",
         describe:"",
-        img:""
+        img: []
     });
     const number =(value,selector)=>{
         if(value<0){
@@ -27,43 +28,51 @@ function EditBook(props){
             document.getElementById(selector).classList.add("invalid");
         }
     }
-    const edit =(e)=>{
-        // e.preventDefault()
-        try {
-            const res=  axios.put(`https://serverbookstore.herokuapp.com/api/Books/updateBook/${props.id}`,{
-                name:bookEdit.name,
-                publisher:bookEdit.publisher,
-                author:bookEdit.author,
-                price:bookEdit.price,
-                quantityOfPage:bookEdit.quantityOfPage,
-                publishYear:bookEdit.publishYear,
-                suppiler:bookEdit.suppiler,
-                translator:bookEdit.translator,
-                numberInStock:bookEdit.numberInStock,
-               
-                describe:bookEdit.describe
-            });
+    const edit = async (e)=>{
+        e.preventDefault()
+        try {      
+            const formData =new FormData();
+            formData.append('name', bookEdit.name)
+            formData.append('publisher',bookEdit.publisher)
+            formData.append('author', bookEdit.author)
+            formData.append('price', bookEdit.price)
+            formData.append('quantityOfPage',bookEdit.quantityOfPage)
+            formData.append('publishYear',bookEdit.publishYear)
+            formData.append('suppiler', bookEdit.suppiler)
+            formData.append('translator',bookEdit.translator)
+            formData.append('numberInStock',bookEdit.numberInStock)
+            formData.append('describe',bookEdit.describe)
+            formData.append( 'image',bookEdit.img)
+            const res = await axios.put(`https://serverbookstore.herokuapp.com/api/Books/updateBook/${props.id}`,
+               formData,
+               {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+            )
             // console.log(res.data)
         } catch (error) {
             console.log(error)
         }
+        props.onCloseForm();
     }
-    console.log(bookEdit)
+   
     const handleChange = e =>{
         setBookEdit({
             ...bookEdit,
-            [e.target.name]:e.target.value
+            [e.target.name]:e.target.name === 'img' ? e.target.files[0] : e.target.value,
         })
     }
     useEffect(()=>{
-        axios.get("https://serverbookstore.herokuapp.com/api/Books/"+props.name)
+        axios.get(`https://serverbookstore.herokuapp.com/api/Books/${props.name}`)
         .then(res => {          
-          setBookEdit(res.data[0]);   
-            
+          setBookEdit(res.data[0]);
+          console.log(res.data[0])   
         })
         .catch(error => console.log(error));
-      },[])
-      console.log(bookEdit);
+    },[])
+     
     return(
         <div className="_modal _modal-top fade_" id="modalTop_edit" >
             <div className="_modal-dialog">
@@ -255,19 +264,21 @@ function EditBook(props){
                             />
                         </div>           
                     </div>
-                    {/* <div className="row">
+                    <div className="row">
                         <div className="col mb-3">
                             <label htmlFor="inputGroupFile02" className="_form-label">
                                 Hình ảnh
-                                </label>
+                            </label>
                             <div className="input-group">
-                                <input type="file" className="_form-control" id="inputGroupFile02" />
-                                <label className="input-group-text" htmlFor="inputGroupFile02">
+                                <input type="file" className="_form-control" name="img" id="inputGroupFile02" 
+                                onChange={handleChange} />
+                                {/* <label className="input-group-text" htmlFor="inputGroupFile02">
                                     Upload
-                                </label>
+                                </label> */}
                             </div> 
                         </div>
-                    </div> */}
+                    </div>
+
                     <div class="mb-3">
                           <label class="_form-label" for="basic-default-message">Mô tả</label>
                           <textarea
@@ -281,7 +292,7 @@ function EditBook(props){
                                 require(e.target.value,e.target.id)                                
                             }}
                           ></textarea>
-                        </div>
+                    </div>
                 </div>
                 <div className="_modal-footer">
                     <button
