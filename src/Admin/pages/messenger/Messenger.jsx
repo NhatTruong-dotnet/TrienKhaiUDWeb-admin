@@ -3,7 +3,7 @@ import Conversation from '../../components/conversations/Conversation'
 import Message from '../../components/message/Message'
 import { useContext, useEffect, useRef, useState } from 'react'
 import axios from "axios"
-import { Context } from "../../Context/Context";
+import io from 'socket.io-client'
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -13,13 +13,15 @@ export default function Messenger() {
   let currentUser = JSON.parse(localStorage.getItem('user'));
   let userToFetchConversation = '';
   let messageSend = useRef();
-  const { newMessageCome, fetchData } = useContext(Context);
+  const [socket, setSocket] = useState(io(`https://serverbookstore.herokuapp.com`));
+  const [newMessgeCome, setNewMessageCome] = useState(false);
 
   const [enabledSendIcon, setEnabledSendIcon] = useState(false);
   try { 
+    socket.emit("admin-connect");
     userToFetchConversation = currentUser.userToFetchConversation;
-    console.log('try')
   } catch (error) {
+    socket.emit("admin-connect");
     let guestInfo = {
       "userToFetchConversation": "",
       "gmail": ""
@@ -29,9 +31,10 @@ export default function Messenger() {
     
   }
   useEffect(() => {
-    console.log('run in admin');
     currentUser = JSON.parse(localStorage.getItem('user'))
-   
+    socket.on("forwardToAdmin", args =>{
+     setNewMessageCome(!newMessgeCome)
+    })
     //https://dmitripavlutin.com/react-useeffect-infinite-loop/
     const getConversations = async () => {
       try {
@@ -46,7 +49,7 @@ export default function Messenger() {
           console.log(error);
       }
     }
-    getConversations();},[currentUser.gmail,newMessageCome]
+    getConversations();},[currentUser.gmail,newMessgeCome]
   );
 
   useEffect(() => {
@@ -63,7 +66,7 @@ export default function Messenger() {
           console.log(error);
       }
     }
-    getConversations();}, [fetchMessagesByEmail,messageSendSucess,newMessageCome]
+    getConversations();}, [fetchMessagesByEmail,messageSendSucess,newMessgeCome]
   );
 
 
@@ -88,10 +91,9 @@ export default function Messenger() {
         currentUser = JSON.parse(localStorage.getItem('user'))
         const message = {gmail: currentUser.gmail, messageText:messageSend.current.value}
         const res = await axios.post("https://serverbookstore.herokuapp.com/api/conversations/"+currentUser.userToFetchConversation,message).then(() => setMessageSendSucess(!messageSendSucess));
-        fetchData('client');
         document.getElementById('chatMessageInputAdmin').value = '';
         setEnabledSendIcon(false)
-        
+        socket.emit("adminChat", "adminChatChat")
     } catch (error) {
         console.log(error);
     }
@@ -118,8 +120,8 @@ export default function Messenger() {
             <div className="chatBoxTopAdmin">
               {
                 messages.map((element, i) => {
-                  return <div >
-                    <Message key={i}
+                  return <div ref={scrollRef}>
+                    <Message key={element._id}
                         messageText={element.messageText}
                         //https://www.javascripttutorial.net/web-apis/javascript-localstorage/#:~:text=The%20localStorage%20can%20store%20only,the%20localStorage%20using%20the%20JSON.
                         own={element.gmail === currentUser.gmail ? true : false}
