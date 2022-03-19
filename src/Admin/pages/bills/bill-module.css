@@ -1,0 +1,27 @@
+.active {
+    background-color: rgb(230, 173, 104) !important;
+    box-shadow: 2px 3px #aaa9a9  !important;
+}
+*{
+    color: black  !important;
+}
+.success{
+    background-color: rgb(200, 231, 182)  !important;
+    box-shadow: 2px 3px #aaa9a9  !important;
+}
+
+.fail{
+    background-color: rgb(224, 100, 100)  !important;
+    box-shadow: 2px 3px #aaa9a9  !important;
+}
+
+.onway {
+    background-color: rgb(201, 206, 198)  !important;
+    box-shadow: 2px 3px #aaa9a9  !important;
+    
+}
+.selectedItem {
+    background-color: rgb(212, 210, 209) !important;
+    box-shadow: 2px 3px #aaa9a9  !important;
+    border: 1px solid black  !important
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../bill.css'
+import '../bill-module.css'
 export default function Bill_Item(props) {
     console.log(props.style);
     let billStatus = ''
