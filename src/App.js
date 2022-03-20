@@ -7,6 +7,7 @@ import Context from './Admin/Context/Context'
 import Users from './Admin/pages/users'
 import GlobalStyle from './Admin/GlobalStyle/GlobalStyle'
 import Sidebar from './Common/Sidebar'
+import ToastMessage from './Common/ToastMessage/ToastMessage'
 function App() {
     return (
         <GlobalStyle>
@@ -19,7 +20,7 @@ function App() {
                             </div>
                             <div className='col l-10'>
                                 <Context>
-                                <Route exact path='/'>
+                                    <Route exact path='/'>
                                         <Users />
                                     </Route>
                                     <Route exact path='/bill'>
@@ -32,6 +33,7 @@ function App() {
                                         <Users />
                                     </Route>
                                 </Context>
+                                <ToastMessage />
                             </div>
                         </div>
                     </div>

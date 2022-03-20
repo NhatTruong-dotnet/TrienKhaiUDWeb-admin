@@ -52,7 +52,14 @@ const Loading = () => {
 }
 
 const ConfirmDialog = ({
-    config: { title, content, acceptText, cancelText, onDone, loadingOnDone },
+    config: {
+        title,
+        content,
+        acceptText,
+        cancelText,
+        onDone = () => {},
+        loadingOnDone,
+    },
 }) => {
     const [showLoading, setShowLoading] = useState(false)
 
