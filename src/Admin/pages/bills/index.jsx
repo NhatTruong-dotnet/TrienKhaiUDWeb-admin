@@ -13,22 +13,23 @@ export default function BillPage() {
     const [loadingModal, setLoadingModal] = useState(false)
     
     let classNameInit = [
-        ["card-header active","https://serverbookstore.herokuapp.com/api/bills/status/all"],
-        ["card-header onway","https://serverbookstore.herokuapp.com/api/bills/status/onway"], 
-        ["card-header fail","https://serverbookstore.herokuapp.com/api/bills/status/fail"], 
-        ["card-header success","https://serverbookstore.herokuapp.com/api/bills/status/success"]
+        ["card-header active","all"],
+        ["card-header onway","onway"], 
+        ["card-header fail","fail"], 
+        ["card-header success","success"]
     ]
 
     useEffect(async () => {
         console.log('runn');
         setLoadingModal(true)
-        let dataReturn = await axios.get(url)
+        let dataReturn = await axios.get("https://serverbookstore.herokuapp.com/api/bills/status/"+url)
         setBills(dataReturn.data)
         setLoadingModal(false)
         
     }, [url])
 
     function handleClick(item) {
+        console.log(item.id);
         setSelectedBill(item)
     }
 
@@ -59,7 +60,7 @@ export default function BillPage() {
                     }
                 </div>
 
-                <div class="table-responsive text-nowrap">
+                <div style={{overflow:"hidden"}} class="table-responsive text-nowrap">
                     <table class="table">
                         <thead>
                             <tr>
@@ -73,6 +74,8 @@ export default function BillPage() {
                             {
                                bills.length != 0 ? bills.map((element) => {
                                     return <Bill_Item
+                                        style={selectedBill.id === element._id ? 'selectedItem':''}
+                                        key={element._id}
                                         onclick={handleClick}
                                         id={element._id}
                                         paymentMethod={element.paymentMethod}
@@ -90,7 +93,7 @@ export default function BillPage() {
                 </div>
             </div>
 
-            <div className="card col-6" style={{ height: "800px", width: "auto" }} >
+            <div className="card col-5" style={{ height: "800px", width: "auto" }} >
                 <h5 class="card-header">Chi tiết hóa đơn</h5>
                 <div class="table-responsive text-nowrap">
                     {

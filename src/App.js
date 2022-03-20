@@ -19,6 +19,9 @@ function App() {
                             </div>
                             <div className='col l-10'>
                                 <Context>
+                                <Route exact path='/'>
+                                        <Users />
+                                    </Route>
                                     <Route exact path='/bill'>
                                         <BillPage />
                                     </Route>

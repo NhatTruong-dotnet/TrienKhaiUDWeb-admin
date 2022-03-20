@@ -1,9 +1,9 @@
 .active {
-    background-color: bisque;
+    background-color: rgb(230, 173, 104) ;
     box-shadow: 2px 3px #aaa9a9;
 }
 .success{
-    background-color: rgb(163, 231, 123);
+    background-color: rgb(200, 231, 182);
     box-shadow: 2px 3px #aaa9a9;
 }
 
@@ -15,4 +15,9 @@
 .onway {
     background-color: rgb(201, 206, 198);
     box-shadow: 2px 3px #aaa9a9;
+}
+.selectedItem {
+    background-color: rgb(212, 210, 209) !important;
+    box-shadow: 2px 3px #aaa9a9;
+    border: 1px solid black
 }
