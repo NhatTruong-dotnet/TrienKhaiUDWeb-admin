@@ -5,8 +5,9 @@ import styles from './index.module.css'
 
 function Users(props) {
     const [listUser, setListUser] = useState([])
-
+    const [width, setWidth] = useState(window.innerWidth)
     useEffect(() => {
+       
         const getAllUser = async () => {
             try {
                 const res = await axios.get(
@@ -18,6 +19,8 @@ function Users(props) {
             }
         }
         getAllUser()
+
+
     }, [])
 
     const handleResetPassword = async gmail => {
