@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Bill_detail from './bill_detail/bill_detail'
 import Bill_Item from './bill_Item/Bill_Item'
 import io from 'socket.io-client'
-import './bill.css'
+import './bill-module.css'
 import DynamicModal from '../../../Common/DynamicModal/DynamicModal'
 export default function BillPage() {
     const [bills, setBills] = useState([])

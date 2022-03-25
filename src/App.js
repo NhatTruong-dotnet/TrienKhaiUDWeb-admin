@@ -7,6 +7,7 @@ import Context from './Admin/Context/Context'
 import Users from './Admin/pages/users'
 import GlobalStyle from './Admin/GlobalStyle/GlobalStyle'
 import Sidebar from './Common/Sidebar'
+import BookAdmin from './Admin/pages/BookAdmin/BookAdmin'
 function App() {
     return (
         <GlobalStyle>
@@ -30,6 +31,9 @@ function App() {
                                     </Route>
                                     <Route exact path='/users'>
                                         <Users />
+                                    </Route>
+                                    <Route exact path='/book'>
+                                        <BookAdmin />
                                     </Route>
                                 </Context>
                             </div>
