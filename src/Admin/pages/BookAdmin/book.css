@@ -681,8 +681,10 @@
 }
 .invalid {
   border-color: #f33a58;
+  color: #f33a58;
+  
 }
 
-.invalid .form-message {
+#book-ad-form-message {
   color: #f33a58;
 }
